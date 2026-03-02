@@ -74,8 +74,26 @@ PHASE 9 — Deployment           ⏳
 ### Moments that hit different
 - Seeing my own name appear on screen for the first time
 - Watching the attendance summary print automatically
-```
+``
 
+### What I built
+- Connected Supabase PostgreSQL database
+- Students and attendance now save to cloud permanently
+- Admin login protecting the whole system
+- Add student live from website with auto training
+- Export attendance as Excel
+- Full stack complete end to end
+
+### What I learned
+- Environment variables keep secrets safe
+- Supabase is PostgreSQL in the cloud
+- Real databases persist data unlike JSON files
+- Full stack means frontend + backend + database working together
+
+### How I felt
+- Overwhelmed at times but pushed through
+- Every error I fixed made me more confident
+- Cant believe I built this in one week
 ---
 
 ## You are here now:
