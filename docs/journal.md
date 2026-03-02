@@ -60,16 +60,34 @@ PHASE 9 — Deployment           ⏳
 - How exactly FaceNet generates the 128 numbers
 - What kernel="linear" means in SVM
 
+### What I built
+- Built face_engine.py — real time recognition engine
+- System successfully recognized 5/6 students live
+- Attendance summary printed with present/absent list
 
+### What I learned
+- DeepFace works better reading from file than raw array
+- detector_backend="skip" avoids double face detection
+- Confidence threshold of 55% filters out wrong matches
+- Every 15 frames = smooth video + fast enough recognition
+
+### Moments that hit different
+- Seeing my own name appear on screen for the first time
+- Watching the attendance summary print automatically
+```
+
+---
 
 ## You are here now:
-
+```
 PHASE 1 — Setup & Git          ✅ DONE
 PHASE 2 — Python Environment   ✅ DONE
 PHASE 3 — Dataset Collection   ✅ DONE
-PHASE 4 — Train the Model      ✅ DONE ← just finished!
-PHASE 5 — Face Recognition     ⏳ NEXT
-PHASE 6 — Backend API          ⏳
+PHASE 4 — Train the Model      ✅ DONE
+PHASE 5 — Face Recognition     ✅ DONE 🎉
+PHASE 6 — Backend API          ⏳ NEXT
 PHASE 7 — Frontend UI          ⏳
 PHASE 8 — Firebase Database    ⏳
 PHASE 9 — Deployment           ⏳
+
+
