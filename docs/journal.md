@@ -21,3 +21,55 @@
 ### Errors I hit and fixed
 - mkdir failed in PowerShell → ran folders one by one
 - type nul failed → switched to Git Bash, used touch instead.
+
+## You are here now:
+```
+PHASE 1 — Setup & Git          ✅ DONE
+PHASE 2 — Python Environment   ✅ DONE← just finished!
+PHASE 3 — Dataset Collection   ⏳ NEXT
+PHASE 4 — Train the Model      ⏳ 
+PHASE 5 — Face Recognition     ⏳ 
+PHASE 6 — Backend API          ⏳
+PHASE 7 — Frontend UI          ⏳
+PHASE 8 — Firebase Database    ⏳
+PHASE 9 — Deployment           ⏳
+
+
+
+
+
+
+
+
+
+
+## Day 2 — [2nd march 2026.]
+
+### What I built
+- Wrote the model trainer script
+- Trained SVM classifier on 6 students
+- Got 93.75% accuracy on first run
+
+### What I learned
+- DeepFace converts faces into 128 numbers called embeddings
+- SVM learns the difference between those number patterns
+- train_test_split tests the model on photos it never saw
+- Higher accuracy = model generalizes better to new photos
+
+### What I still don't understand
+- How exactly FaceNet generates the 128 numbers
+- What kernel="linear" means in SVM
+
+
+
+## You are here now:
+
+PHASE 1 — Setup & Git          ✅ DONE
+PHASE 2 — Python Environment   ✅ DONE
+PHASE 3 — Dataset Collection   ✅ DONE
+PHASE 4 — Train the Model      ✅ DONE ← just finished!
+PHASE 5 — Face Recognition     ⏳ NEXT
+PHASE 6 — Backend API          ⏳
+PHASE 7 — Frontend UI          ⏳
+PHASE 8 — Firebase Database    ⏳
+PHASE 9 — Deployment           ⏳
