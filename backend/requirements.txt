@@ -2,8 +2,7 @@ fastapi
 uvicorn[standard]
 opencv-python-headless
 deepface==0.0.79
-tensorflow==2.12.0
-keras==2.12.0
+tensorflow-cpu==2.13.1
 tf-keras
 scikit-learn
 python-multipart
@@ -11,5 +10,5 @@ supabase
 python-dotenv
 openpyxl
 websockets
-numpy==1.23.5
+numpy==1.24.3
 Pillow
