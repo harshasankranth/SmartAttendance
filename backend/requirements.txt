@@ -1,8 +1,7 @@
 fastapi
 uvicorn[standard]
 opencv-python-headless
-deepface
-tensorflow==2.13.0
+deepface==0.0.79
 tf-keras
 scikit-learn
 python-multipart

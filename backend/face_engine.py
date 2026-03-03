@@ -1,7 +1,4 @@
-# backend/face_engine.py
-# ─────────────────────────────────────────────────────
-# SmartAttendance — Face Recognition Engine (Fixed)
-# ─────────────────────────────────────────────────────
+
 
 import cv2
 import pickle
