@@ -2,13 +2,13 @@ fastapi
 uvicorn[standard]
 opencv-python-headless
 deepface
+tensorflow==2.13.0
+tf-keras
 scikit-learn
 python-multipart
 supabase
 python-dotenv
 openpyxl
-tf-keras
 websockets
 numpy
 Pillow
-
