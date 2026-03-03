@@ -11,4 +11,4 @@ openpyxl
 websockets
 numpy
 Pillow
-EOF
+
