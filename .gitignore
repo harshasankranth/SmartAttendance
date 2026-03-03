@@ -210,4 +210,5 @@ __marimo__/
 venv/
 __pycache__/
 *.pkl
+model/dataset/
 model/
