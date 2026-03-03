@@ -40,7 +40,7 @@ export default function Camera({ setAttendance, setPresentCount }) {
   // Connect to backend WebSocket
   // ─────────────────────────────────────────────
   const connectWebSocket = () => {
-    const ws = new WebSocket("ws://localhost:8000/ws/recognize")
+    const ws = new WebSocket("wss://harshasankranth-smartattendance.hf.space/ws/recognize")
     wsRef.current = ws
 
     ws.onopen = () => {

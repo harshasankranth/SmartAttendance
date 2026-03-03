@@ -1,7 +1,7 @@
 // frontend/src/components/Dashboard.jsx
 export default function Dashboard({ attendance }) {
   const exportAttendance = () => {
-    window.open("http://localhost:8000/attendance/export", "_blank")
+    window.open("https://harshasankranth-smartattendance.hf.space  /attendance/export", "_blank")
   }
 
   return (
