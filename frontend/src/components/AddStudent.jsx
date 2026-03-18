@@ -79,7 +79,7 @@ export default function AddStudent({ setPage }) {
     setMessage("Saving photos and training model...")
 
     try {
-      const res = await fetch("https://harshasankranth-smartattendance.hf.space  /students/add", {
+      const res = await fetch("https://https://harshasankranth-smartattendance.hf.space  /students/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
