@@ -1,3 +1,4 @@
+// SmartAttendance v2.1
 // frontend/src/components/Login.jsx
 // ─────────────────────────────────────────────────────
 // Admin login page
