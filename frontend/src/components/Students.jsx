@@ -6,7 +6,7 @@ export default function Students({ setPage }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("https://https://harshasankranth-smartattendance.hf.space  /students/all")
+    fetch("https://harshasankranth-smartattendance.hf.space/students/all")
       .then(res => res.json())
       .then(data => {
         setStudents(data.students)
