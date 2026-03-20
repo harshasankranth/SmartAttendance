@@ -151,7 +151,25 @@ def get_students():
         "students": list(students_db.values()),
         "total": len(students_db)
     }
+@app.delete("/students/delete/{enrollment}")
+async def delete_student(enrollment: str):
+    global students_db
 
+    if enrollment not in students_db:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+    student = students_db[enrollment]
+    folder = student.get("folder", "")
+    if folder and os.path.exists(folder):
+        shutil.rmtree(folder)
+
+    del students_db[enrollment]
+    save_students()
+
+    if len(students_db) >= 2:
+        retrain_model()
+
+    return {"success": True, "message": f"Student {student['name']} deleted"}
 @app.post("/students/add")
 async def add_student(req: StudentRequest):
     global students_db
