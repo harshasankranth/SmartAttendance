@@ -13,18 +13,20 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 def load_model():
     try:
-        clf = pickle.load(open("model/classifier.pkl", "rb"))
         data = pickle.load(open("model/encodings.pkl", "rb"))
-        print("Model loaded!")
-        print(f"Students: {data['students']}")
-        return clf, data["students"]
+
+        known_encodings = np.array(data["embeddings"])
+        known_names = data["labels"]
+
+        print("Embeddings loaded!")
+        return known_encodings, known_names
+
     except FileNotFoundError:
-        print("ERROR: Model not found. Run trainer.py first!")
+        print("ERROR: Model not found.")
         return None, None
 
-def recognize_face(clf, face_img):
+def recognize_face(known_encodings, known_names, face_img, threshold=0.6):
     try:
-        # Save face crop temporarily — DeepFace works better with file path
         temp_path = "model/temp_face.jpg"
         cv2.imwrite(temp_path, face_img)
 
@@ -36,16 +38,25 @@ def recognize_face(clf, face_img):
         )
 
         if not result:
-            return "Unknown", 0.0
+            return "Unknown", 0
 
-        embedding = np.array(result[0]["embedding"]).reshape(1, -1)
-        prediction = clf.predict(embedding)[0]
-        confidence = clf.predict_proba(embedding).max() * 100
+        embedding = np.array(result[0]["embedding"])
 
-        return prediction, round(confidence, 2)
+        # Distance calculation
+        distances = np.linalg.norm(known_encodings - embedding, axis=1)
 
-    except Exception as e:
-        return "Unknown", 0.0
+        min_idx = np.argmin(distances)
+        min_distance = distances[min_idx]
+
+        print("Distance:", min_distance)
+
+        if min_distance < threshold:
+            return known_names[min_idx], round((1 - min_distance) * 100, 2)
+        else:
+            return "Unknown", 0
+
+    except:
+        return "Unknown", 0
 
 def run_recognition():
     print("\n" + "="*50)
