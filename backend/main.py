@@ -79,16 +79,16 @@ async def startup():
     try:
         if not os.path.exists("model/encodings.pkl"):
             print("Downloading encodings from Supabase...")
-            res = supabase.storage.from_("models").download("encodings.pkl")
+            #res = supabase.storage.from_("models").download("encodings.pkl")
             os.makedirs("model", exist_ok=True)
-            with open("model/encodings.pkl", "wb") as f:
-                f.write(res)
+            #with open("model/encodings.pkl", "wb") as f:
+               # f.write(res)
 
         data = pickle.load(open("model/encodings.pkl", "rb"))
         known_encodings = np.array(data["embeddings"])
         known_names = data["labels"]
 
-        print("Encodings loaded successfully!")
+        print("Encodings loaded:", len(known_names))
 
     except Exception as e:
         print("No encodings found:", e)

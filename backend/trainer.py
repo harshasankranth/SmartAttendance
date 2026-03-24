@@ -11,7 +11,6 @@ import os
 import pickle
 import numpy as np
 from deepface import DeepFace
-from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
@@ -84,9 +83,6 @@ def train_model():
         X, y, test_size=0.2, random_state=42
     )
 
-    clf = SVC(kernel="linear", probability=True, C=1.0)
-    clf.fit(X_train, y_train)
-
     # ─────────────────────────────────────────────
     # STEP 4 — Test accuracy
     # ─────────────────────────────────────────────
@@ -98,19 +94,18 @@ def train_model():
     # ─────────────────────────────────────────────
     os.makedirs("model", exist_ok=True)
 
-    pickle.dump(clf, open("model/classifier.pkl", "wb"))
     pickle.dump({
-        "embeddings": embeddings,
-        "labels": labels,
-        "students": students
-    }, open("model/encodings.pkl", "wb"))
+    "embeddings": embeddings,
+    "labels": labels,
+    "students": students
+}, open("model/encodings.pkl", "wb"))
 
-    print("\n" + "="*50)
-    print("Training complete!")
-    print(f"Students trained: {sorted(set(labels))}")
-    print(f"Accuracy: {round(accuracy * 100, 2)}%")
-    print("Model saved to model/classifier.pkl")
-    print("="*50 + "\n")
+print("\n" + "="*50)
+print("Training complete!")
+print(f"Students trained: {sorted(set(labels))}")
+print(f"Total embeddings: {len(embeddings)}")
+print("Model saved to model/encodings.pkl")
+print("="*50 + "\n")
 
 if __name__ == "__main__":
     train_model()
