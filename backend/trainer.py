@@ -47,11 +47,11 @@ def train_model():
             img_path = f"{student_path}/{img_file}"
 
             try:
-                # DeepFace converts the face into 128 numbers (embedding)
                 result = DeepFace.represent(
                     img_path=img_path,
                     model_name="Facenet",
-                    enforce_detection=False
+                    enforce_detection=True,    # ← changed
+                    detector_backend="opencv"  # ← added
                 )
                 embedding = result[0]["embedding"]
                 embeddings.append(embedding)
