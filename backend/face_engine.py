@@ -26,7 +26,7 @@ def load_model():
         print("ERROR: Model not found.")
         return None, None
 
-def recognize_face(known_encodings, known_names, face_img, threshold=0.5):
+def recognize_face(known_encodings, known_names, face_img, threshold=0.55):
     try:
         if known_encodings is None or len(known_encodings) == 0:
             return "Unknown", 0
@@ -111,17 +111,17 @@ def run_recognition():
         for (x, y, w, h) in faces:
 
             # Only recognize every 15 frames for performance
-            if frame_count % 15 == 0:
+            if frame_count % 10 == 0:
                 face_crop = frame[y:y+h, x:x+w]
 
                 # Make sure face crop is big enough
-                if face_crop.shape[0] > 50 and face_crop.shape[1] > 50:
+                if face_crop.shape[0] > 100 and face_crop.shape[1] > 100:
                     current_name, current_confidence = recognize_face(
                         known_encodings, known_names, face_crop
                     )
 
                     # Mark attendance
-                    if current_confidence >= 82 and current_name != "Unknown":
+                    if current_confidence >= 70 and current_name != "Unknown":
                         if current_name not in marked_today:
                             marked_today.add(current_name)
                             timestamp = datetime.now().strftime("%H:%M:%S")
