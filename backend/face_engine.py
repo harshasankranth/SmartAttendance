@@ -105,7 +105,9 @@ def run_recognition():
 
                 # Make sure face crop is big enough
                 if face_crop.shape[0] > 50 and face_crop.shape[1] > 50:
-                    current_name, current_confidence = recognize_face(clf, face_crop)
+                    current_name, current_confidence = recognize_face(
+                        known_encodings, known_names, face_crop
+                    )
 
                     # Mark attendance
                     if current_confidence >= 82 and current_name != "Unknown":
