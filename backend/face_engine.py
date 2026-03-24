@@ -2,6 +2,7 @@
 
 import cv2
 import pickle
+from matplotlib.pyplot import clf
 import numpy as np
 from deepface import DeepFace
 from datetime import datetime
@@ -25,8 +26,11 @@ def load_model():
         print("ERROR: Model not found.")
         return None, None
 
-def recognize_face(known_encodings, known_names, face_img, threshold=0.6):
+def recognize_face(known_encodings, known_names, face_img, threshold=0.5):
     try:
+        if known_encodings is None or len(known_encodings) == 0:
+            return "Unknown", 0
+
         temp_path = "model/temp_face.jpg"
         cv2.imwrite(temp_path, face_img)
 
@@ -48,14 +52,18 @@ def recognize_face(known_encodings, known_names, face_img, threshold=0.6):
         min_idx = np.argmin(distances)
         min_distance = distances[min_idx]
 
-        print("Distance:", min_distance)
+        print("Distance:", round(min_distance, 4))  # DEBUG
 
+        # STRICT CHECK
         if min_distance < threshold:
-            return known_names[min_idx], round((1 - min_distance) * 100, 2)
-        else:
-            return "Unknown", 0
+            name = known_names[min_idx]
+            confidence = round((1 - min_distance) * 100, 2)
+            return name, confidence
 
-    except:
+        return "Unknown", 0
+
+    except Exception as e:
+        print("Error:", e)
         return "Unknown", 0
 
 def run_recognition():
@@ -63,8 +71,11 @@ def run_recognition():
     print("   SmartAttendance - Recognition Engine")
     print("="*50)
 
-    clf, students = load_model()
-    if clf is None:
+    
+    known_encodings, known_names = load_model()
+
+    if known_encodings is None or len(known_encodings) == 0:
+        print("ERROR: No known encodings. Please run the trainer first.")
         return
 
     cap = cv2.VideoCapture(0)
@@ -162,7 +173,7 @@ def run_recognition():
     print("="*50)
     print(f"Date: {datetime.now().strftime('%d %b %Y')}")
     print(f"Present ({len(marked_today)}): {', '.join(marked_today) if marked_today else 'None'}")
-    absent = set(students) - marked_today
+    absent = set(known_names) - marked_today
     print(f"Absent ({len(absent)}): {', '.join(absent) if absent else 'None'}")
     print("="*50 + "\n")
 
