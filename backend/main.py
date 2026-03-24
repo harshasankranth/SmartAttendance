@@ -80,22 +80,43 @@ ATTENDANCE_FILE = "model/attendance.json"
 async def startup():
     global clf, students_db, attendance_log
     
-    # Load model
-    try:
-        clf = pickle.load(open("model/classifier.pkl", "rb"))
-        print("Model loaded!")
-    except:
-        print("No model found. Add students to train.")
-    
     # Load students
     if os.path.exists(STUDENTS_FILE):
         students_db = json.load(open(STUDENTS_FILE))
         print(f"Loaded {len(students_db)} students")
-    
+
     # Load attendance
     if os.path.exists(ATTENDANCE_FILE):
         attendance_log = json.load(open(ATTENDANCE_FILE))
         print(f"Loaded {len(attendance_log)} attendance records")
+
+    # Try loading model locally first
+    if os.path.exists("model/classifier.pkl"):
+        try:
+            clf = pickle.load(open("model/classifier.pkl", "rb"))
+            print("Model loaded from local file!")
+            return
+        except:
+            print("Local model corrupted, trying Supabase...")
+
+    # Download model from Supabase Storage
+    try:
+        print("Downloading model from Supabase...")
+        os.makedirs("model", exist_ok=True)
+        
+        res = supabase.storage.from_("models").download("classifier.pkl")
+        with open("model/classifier.pkl", "wb") as f:
+            f.write(res)
+        
+        res2 = supabase.storage.from_("models").download("encodings.pkl")
+        with open("model/encodings.pkl", "wb") as f:
+            f.write(res2)
+
+        clf = pickle.load(open("model/classifier.pkl", "rb"))
+        print("Model loaded from Supabase!")
+    except Exception as e:
+        print(f"No model in Supabase yet: {e}")
+        print("Add students to train a new model.")
 
 def save_students():
     os.makedirs("model", exist_ok=True)
@@ -266,7 +287,24 @@ def retrain_model():
 
         clf = clf_new
         print(f"Model retrained! Students: {list(set(labels))}")
+        # Upload model to Supabase Storage
+        try:
+            with open("model/classifier.pkl", "rb") as f:
+                supabase.storage.from_("models").upload(
+                    "classifier.pkl", f.read(),
+                    {"content-type": "application/octet-stream", "upsert": "true"}
+                )
+            with open("model/encodings.pkl", "rb") as f:
+                supabase.storage.from_("models").upload(
+                    "encodings.pkl", f.read(),
+                    {"content-type": "application/octet-stream", "upsert": "true"}
+                )
+            print("Model uploaded to Supabase Storage!")
+        except Exception as e:
+            print(f"Supabase upload error: {e}")
+
         return True
+        
 
     except Exception as e:
         print(f"Training error: {e}")
