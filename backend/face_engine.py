@@ -32,7 +32,7 @@ def recognize_face(clf, face_img):
             img_path=temp_path,
             model_name="Facenet",
             enforce_detection=False,
-            detector_backend="skip"
+            detector_backend="opencv"
         )
 
         if not result:
@@ -64,7 +64,7 @@ def run_recognition():
     face_cascade = cv2.CascadeClassifier(
         cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
     )
-
+                         
     marked_today = set()
     frame_count = 0
     current_name = "Detecting..."
@@ -97,7 +97,7 @@ def run_recognition():
                     current_name, current_confidence = recognize_face(clf, face_crop)
 
                     # Mark attendance
-                    if current_confidence >= 55 and current_name != "Unknown":
+                    if current_confidence >= 82 and current_name != "Unknown":
                         if current_name not in marked_today:
                             marked_today.add(current_name)
                             timestamp = datetime.now().strftime("%H:%M:%S")
