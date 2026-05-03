@@ -98,7 +98,7 @@ export default function Login({ onLogin }) {
 
           {/* Hint */}
           <p className="text-gray-600 text-xs text-center mt-4">
-            Default: harsha / lucky123
+            Default: harsha / lucky@123
           </p>
         </div>
 

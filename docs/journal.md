@@ -113,7 +113,7 @@ PHASE 9 — Deployment           ⏳
 ### What's working perfectly:
 - Full stack working locally ✅
 - Face recognition working ✅
-- Frontend UI complete ✅
+- Frontend UI not done
 - Supabase database connected ✅
 - Admin login working ✅
 - Add student from website ✅
